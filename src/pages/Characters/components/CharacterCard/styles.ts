@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CharacterCardContainer = styled.div`
-  box-shadow: 1px 2px 5px 1px #C0C2BE;
+  box-shadow: 1px 2px 5px 1px #c0c2be;
 
   img {
     width: 24rem;
@@ -14,6 +14,6 @@ export const CharacterCardContainer = styled.div`
   }
 
   span {
-    color: ${(props) => props.theme["font-gray"]};
+    color: ${(props) => props.theme['font-gray']};
   }
-`;
+`

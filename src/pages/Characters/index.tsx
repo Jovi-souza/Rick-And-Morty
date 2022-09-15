@@ -1,22 +1,22 @@
-import HomeLogo from "../../assets/HomeSvg.svg";
-import { CharacterCard } from "./components/CharacterCard";
+import HomeLogo from '../../assets/HomeSvg.svg'
+import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
+import { Inputs } from '../../components/Input/styles'
+import { CharacterCard } from './components/CharacterCard'
 import {
-  ButtonLoadMore,
   CharactersContainer,
   CharactersContent,
-  InputsSearch,
   InputsSearchContainer,
-} from "./styles";
+} from './styles'
 
 export function Characters() {
   return (
-    <CharactersContainer> 
+    <CharactersContainer>
       <img src={HomeLogo} alt="" />
       <InputsSearchContainer>
-        <InputsSearch type="text" placeholder="Filter by name" />
-        <InputsSearch type="text" placeholder="Species" />
-        <InputsSearch type="text" placeholder="Gender" />
-        <InputsSearch type="text" placeholder="Status" />
+        <Inputs type="text" placeholder="Filter by name" />
+        <Inputs type="text" placeholder="Species" />
+        <Inputs type="text" placeholder="Gender" />
+        <Inputs type="text" placeholder="Status" />
       </InputsSearchContainer>
       <CharactersContent>
         <CharacterCard />
@@ -29,7 +29,7 @@ export function Characters() {
         <CharacterCard />
       </CharactersContent>
 
-      <ButtonLoadMore>Load More</ButtonLoadMore>
+      <ButtonloadMore>Load More</ButtonloadMore>
     </CharactersContainer>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -6,8 +6,8 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding: 1.5rem 6rem;
 
-  box-shadow: 1px 2px 5px 1px #C0C2BE;
-`;
+  box-shadow: 1px 2px 5px 1px #c0c2be;
+`
 
 export const LinksContainer = styled.div`
   display: flex;
@@ -19,4 +19,4 @@ export const LinksContainer = styled.div`
       color: ${(props) => props.theme.black};
     }
   }
-`;
+`

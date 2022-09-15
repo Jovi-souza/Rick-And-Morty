@@ -1,5 +1,3 @@
 export function Episodes() {
-  return(
-    <div>Episodes</div>
-  )
+  return <div>Episodes</div>
 }

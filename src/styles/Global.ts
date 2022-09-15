@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     -webkit-font-smoothing: antialiased;
   }
 
@@ -18,6 +18,10 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     scroll-behavior: smooth;
     font-family: 'Roboto', sans-serif;
+  }
+
+  a {
+    color: initial;
   }
 
   :focus {

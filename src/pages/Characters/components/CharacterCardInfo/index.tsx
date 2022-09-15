@@ -1,7 +1,13 @@
-import { AvatarIcon, CharacterCardInfoContainer, CharacterCardInfoContent, TablesInfo, TablesRows } from "./styles";
+import {
+  AvatarIcon,
+  CharacterCardInfoContainer,
+  CharacterCardInfoContent,
+  TablesInfo,
+  TablesRows,
+} from './styles'
 import Rick from '../../../../assets/CharacterAvatar.svg'
 export function CharacterCardInfo() {
-  return(
+  return (
     <CharacterCardInfoContainer>
       <AvatarIcon>
         <img src={Rick} alt="" />

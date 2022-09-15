@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CharacterCardInfoContainer = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ export const TablesInfo = styled.div`
   }
 
   h1 {
-    color: ${props => props.theme["font-gray"]};
+    color: ${(props) => props.theme['font-gray']};
     font-weight: 100;
   }
 `
@@ -48,21 +48,21 @@ export const TablesInfo = styled.div`
 export const TablesRows = styled.tr`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid ${props => props.theme["font-gray"]};
+  border-bottom: 1px solid ${(props) => props.theme['font-gray']};
   font-size: 1.5rem;
 
   td {
     :first-child {
-      color: ${props => props.theme.black};
+      color: ${(props) => props.theme.black};
 
       font-size: 2rem;
       font-weight: 800;
 
-      margin-bottom: .75rem;
+      margin-bottom: 0.75rem;
     }
 
     &:not(:first-child) {
-    color: ${props => props.theme["font-gray"]};
-  }
+      color: ${(props) => props.theme['font-gray']};
+    }
   }
 `
