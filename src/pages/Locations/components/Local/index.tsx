@@ -3,7 +3,7 @@ import { LocalContainer } from './styles'
 
 export function Local() {
   return (
-    <NavLink to="/">
+    <NavLink to="/Locations/Info">
       <LocalContainer>
         <h1>Earth (C-137)</h1>
         <p>Planet</p>

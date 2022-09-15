@@ -1,7 +1,7 @@
 import HomeLogo from '../../assets/HomeSvg.svg'
 import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
 import { Inputs } from '../../components/Input/styles'
-import { CharacterCard } from './components/CharacterCard'
+import { CharacterCard } from '../../components/CharacterCard'
 import {
   CharactersContainer,
   CharactersContent,
