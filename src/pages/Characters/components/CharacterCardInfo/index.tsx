@@ -1,4 +1,4 @@
-import { AvatarIcon, CharacterCardInfoContainer, CharacterCardInfoContent } from "./styles";
+import { AvatarIcon, CharacterCardInfoContainer, CharacterCardInfoContent, TablesInfo, TablesRows } from "./styles";
 import Rick from '../../../../assets/CharacterAvatar.svg'
 export function CharacterCardInfo() {
   return(
@@ -8,45 +8,45 @@ export function CharacterCardInfo() {
         <h1>Rick Sanchez</h1>
       </AvatarIcon>
       <CharacterCardInfoContent>
-        <div>
+        <TablesInfo>
           <h1>Informations</h1>
           <tbody>
-            <tr>
+            <TablesRows>
               <td>Gender</td>
               <td>Male</td>
-            </tr>
-            <tr>
+            </TablesRows>
+            <TablesRows>
               <td>Status</td>
               <td>Alive</td>
-            </tr>
-            <tr>
+            </TablesRows>
+            <TablesRows>
               <td>Specie</td>
               <td>Human</td>
-            </tr>
-            <tr>
+            </TablesRows>
+            <TablesRows>
               <td>Origin</td>
               <td>Earth (C-137)</td>
-            </tr>
-            <tr>
+            </TablesRows>
+            <TablesRows>
               <td>Type</td>
               <td>Unknown</td>
-            </tr>
-            <tr>
+            </TablesRows>
+            <TablesRows>
               <td>Locations</td>
               <td>Earth (Replacement Dimension)</td>
-            </tr>
+            </TablesRows>
           </tbody>
-        </div>
-        <div>
+        </TablesInfo>
+        <TablesInfo>
           <h1>Episodes</h1>
           <tbody>
-            <tr>
+            <TablesRows>
               <td>S01E01</td>
               <td>Pilot</td>
               <td>DECEMBER 2.2013</td>
-            </tr>
+            </TablesRows>
           </tbody>
-        </div>
+        </TablesInfo>
       </CharacterCardInfoContent>
     </CharacterCardInfoContainer>
   )

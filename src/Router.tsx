@@ -9,9 +9,8 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
-        <Route path="/" element={<Characters />}>
-          <Route path="/Info" element={<CharacterCardInfo />} />
-        </Route>
+        <Route path="/" element={<Characters />}/>
+        <Route path="/Characters/Info" element={<CharacterCardInfo />} />
         <Route path="/Episodes" element={<Episodes />} />
         <Route path="/Locations" element={<Locations />} />
       </Route>
