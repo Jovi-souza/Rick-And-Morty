@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes } from 'react-router-dom'
 import { DefaultLayout } from './Layout/default'
 import { Characters } from './pages/Characters'
 import { CharacterCardInfo } from './pages/Characters/components/CharacterCardInfo'

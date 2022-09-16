@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const CharacterCardContainer = styled.div`
   box-shadow: 1px 2px 5px 1px #c0c2be;
+  width: 24rem;
 
   img {
     width: 24rem;
