@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { api } from '../../../../lib/axios'
 import {
   AvatarIcon,
   CharacterCardInfoContainer,
@@ -5,53 +7,92 @@ import {
   TablesInfo,
   TablesRows,
 } from './styles'
-import Rick from '../../../../assets/CharacterAvatar.svg'
+
+type locationType = {
+  name: string
+  url: string
+}
+
+type OrigionType = {
+  name: string
+  url: string
+}
+
+interface CharacterProps {
+  created: string
+  episode: string[]
+  gender: string
+  id: number
+  image: string
+  location: locationType
+  name: string
+  origin: OrigionType
+  species: string
+  status?: string
+  type?: string
+  url: string
+}
+
 export function CharacterCardInfo() {
+  const [Character, setCharacter] = useState({} as CharacterProps)
+  async function fetchCharacters() {
+    const response = await api.get(`character/${85}`)
+    const results = response.data
+    console.log(results)
+    setCharacter(results)
+  }
+
+  useEffect(() => {
+    fetchCharacters()
+  }, [])
+
+  const { image, name, gender, status, species, type } = Character
+
   return (
     <CharacterCardInfoContainer>
       <AvatarIcon>
-        <img src={Rick} alt="" />
-        <h1>Rick Sanchez</h1>
+        <img src={image} alt="" />
+        <h1>{name}</h1>
       </AvatarIcon>
       <CharacterCardInfoContent>
         <TablesInfo>
           <h1>Informations</h1>
-          <tbody>
+          <div>
             <TablesRows>
-              <td>Gender</td>
-              <td>Male</td>
+              <p>Gender</p>
+              <p>{gender}</p>
             </TablesRows>
             <TablesRows>
-              <td>Status</td>
-              <td>Alive</td>
+              <p>Status</p>
+              <p>{status}</p>
             </TablesRows>
             <TablesRows>
-              <td>Specie</td>
-              <td>Human</td>
+              <p>Specie</p>
+              <p>{species}</p>
             </TablesRows>
             <TablesRows>
-              <td>Origin</td>
-              <td>Earth (C-137)</td>
+              <p>Origin</p>
+              <p></p>
             </TablesRows>
             <TablesRows>
-              <td>Type</td>
-              <td>Unknown</td>
+              <p>Type</p>
+              <p>{type}</p>
             </TablesRows>
             <TablesRows>
-              <td>Locations</td>
-              <td>Earth (Replacement Dimension)</td>
+              <p>Locations</p>
+              <p></p>
             </TablesRows>
-          </tbody>
+          </div>
         </TablesInfo>
         <TablesInfo>
           <h1>Episodes</h1>
-          <tbody>
+          <div>
             <TablesRows>
-              <td>S01E01</td>
-              <td>Pilot</td>
-              <td>DECEMBER 2.2013</td>
+              <p>S01E01</p>
+              <p>Pilot</p>
+              <p>DECEMBER 2.2013</p>
             </TablesRows>
-          </tbody>
+          </div>
         </TablesInfo>
       </CharacterCardInfoContent>
     </CharacterCardInfoContainer>

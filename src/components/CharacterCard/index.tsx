@@ -9,14 +9,14 @@ interface CharactersProps {
 
 export function CharacterCard({ url, name, species }: CharactersProps) {
   return (
-    <NavLink to="/Characters/Info">
-      <CharacterCardContainer>
+    <CharacterCardContainer>
+      <NavLink to="/Characters/Info">
         <img src={url} alt="" />
-        <div>
-          <h2>{name}</h2>
-          <span>{species}</span>
-        </div>
-      </CharacterCardContainer>
-    </NavLink>
+      </NavLink>
+      <div>
+        <h2>{name}</h2>
+        <span>{species}</span>
+      </div>
+    </CharacterCardContainer>
   )
 }

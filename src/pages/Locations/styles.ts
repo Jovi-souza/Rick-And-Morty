@@ -17,6 +17,8 @@ export const InputsContainer = styled.div`
 
 export const LocalContainer = styled.div`
   display: flex;
-  gap: 4rem;
   flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
 `

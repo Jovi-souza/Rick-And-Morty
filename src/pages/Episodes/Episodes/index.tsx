@@ -1,13 +1,17 @@
 import { NavLink } from 'react-router-dom'
 import { EpisodeInfoContainer } from './styles'
 
-export function EpisodeInfo() {
+interface EpisodeProps {
+  name: string
+  episode: string
+}
+
+export function EpisodeInfo({ episode, name }: EpisodeProps) {
   return (
     <NavLink to="/Episodes/info">
       <EpisodeInfoContainer>
-        <h1>Pilot</h1>
-        <p>December 2, 2013</p>
-        <p>SE01E01</p>
+        <h2>{name}</h2>
+        <p>{episode}</p>
       </EpisodeInfoContainer>
     </NavLink>
   )

@@ -25,6 +25,7 @@ export const AvatarIcon = styled.div`
 export const CharacterCardInfoContent = styled.div`
   display: flex;
   gap: 10rem;
+  margin-bottom: 4rem;
 `
 
 export const TablesInfo = styled.div`
@@ -32,7 +33,7 @@ export const TablesInfo = styled.div`
   flex-direction: column;
   gap: 2rem;
 
-  tbody {
+  div {
     display: flex;
     width: 35rem;
     flex-direction: column;
@@ -45,20 +46,18 @@ export const TablesInfo = styled.div`
   }
 `
 
-export const TablesRows = styled.tr`
+export const TablesRows = styled.div`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid ${(props) => props.theme['font-gray']};
-  font-size: 1.5rem;
 
-  td {
+  p {
+    font-size: 1.5rem;
     :first-child {
       color: ${(props) => props.theme.black};
 
       font-size: 2rem;
       font-weight: 800;
-
-      margin-bottom: 0.75rem;
     }
 
     &:not(:first-child) {
