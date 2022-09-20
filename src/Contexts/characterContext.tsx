@@ -40,12 +40,17 @@ interface EpisodesProps {
   characters: string[]
   url: string
   created: string
+  air_date: string
 }
 
 interface LocationProps {
+  created: string
+  dimension: string
   id: number
   name: string
+  residents: string[]
   type: string
+  url: string
 }
 
 interface CharacterContextType {
@@ -54,6 +59,7 @@ interface CharacterContextType {
   Episodes: EpisodesProps[]
   Episode: EpisodesProps
   Location: LocationProps[]
+  Local: LocationProps
   fetchCharacterInfo: (data: number) => void
   fetchEpisodesInfo: (data: number) => void
   fetchLocalInfo: (data: number) => void
@@ -71,6 +77,7 @@ export function CardsContextProvider({ children }: childrenProps) {
   const [Episodes, setEpisodes] = useState<EpisodesProps[]>([])
   const [Episode, setEpisode] = useState({} as EpisodesProps)
   const [Location, setLocation] = useState<LocationProps[]>([])
+  const [Local, setLocal] = useState({} as LocationProps)
 
   const fetchCharacters = useCallback(async () => {
     const response = await api.get('character')
@@ -84,6 +91,7 @@ export function CardsContextProvider({ children }: childrenProps) {
     const getCharacter = response.data
 
     setCharacter(getCharacter)
+    console.log(getCharacter)
   }
 
   const fetchEpisodes = useCallback(async () => {
@@ -94,24 +102,25 @@ export function CardsContextProvider({ children }: childrenProps) {
   }, [])
 
   const fetchEpisodesInfo = async (data: number) => {
-    const response = await api.get(`episodes/${data}`)
+    const response = await api.get(`episode/${data}`)
     const getEpisode = response.data
 
     setEpisode(getEpisode)
   }
 
   const fetchLocations = useCallback(async () => {
-    const response = await api.get('episode')
+    const response = await api.get('location')
     const getLocations = response.data.results
 
     setLocation(getLocations)
   }, [])
 
   const fetchLocalInfo = async (data: number) => {
-    const response = await api.get(`character/${data}`)
-    const getLocal = response.data.results
+    const response = await api.get(`location/${data}`)
+    const getLocal = response.data
 
-    setLocation(getLocal)
+    setLocal(getLocal)
+    console.log(getLocal)
   }
 
   useEffect(() => {
@@ -128,6 +137,7 @@ export function CardsContextProvider({ children }: childrenProps) {
         Episodes,
         Episode,
         Location,
+        Local,
         fetchCharacterInfo,
         fetchEpisodesInfo,
         fetchLocalInfo,

@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'phosphor-react'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CharacterCard } from '../../../components/CharacterCard'
+import { CardsContext } from '../../../Contexts/characterContext'
 import {
   Content,
   EpisodesInfocontainer,
@@ -9,6 +10,8 @@ import {
 } from './styles'
 
 export function EpisodesInfo() {
+  const { Episode } = useContext(CardsContext)
+
   return (
     <EpisodesInfocontainer>
       <NavLink to="/Episodes">
@@ -18,26 +21,21 @@ export function EpisodesInfo() {
         </button>
       </NavLink>
       <InfoHeaderContainer>
-        <h1>Pilot</h1>
+        <h1>{Episode.name}</h1>
         <div>
           <div>
             <span>Episode</span>
-            <span>SE01E01</span>
+            <span>{Episode.episode}</span>
           </div>
           <div>
             <span>Date</span>
-            <span>December 2, 2013</span>
+            <span>{Episode.air_date}</span>
           </div>
         </div>
       </InfoHeaderContainer>
       <InfoContent>
         <h1>Residents</h1>
-        <Content>
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-        </Content>
+        <Content></Content>
       </InfoContent>
     </EpisodesInfocontainer>
   )

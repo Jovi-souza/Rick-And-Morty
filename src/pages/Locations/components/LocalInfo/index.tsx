@@ -6,8 +6,10 @@ import {
 } from './styles'
 import { ArrowLeft } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
-import { CharacterCard } from '../../../../components/CharacterCard'
+import { useContext } from 'react'
+import { CardsContext } from '../../../../Contexts/characterContext'
 export function LocalInfo() {
+  const { Local } = useContext(CardsContext)
   return (
     <LocalInfoContainer>
       <NavLink to="/Locations">
@@ -17,26 +19,21 @@ export function LocalInfo() {
         </button>
       </NavLink>
       <InfoHeaderContainer>
-        <h1>Earth (Replacement Dimension)</h1>
+        <h1>{Local.name}</h1>
         <div>
           <div>
             <span>Type</span>
-            <span>Planet</span>
+            <span>{Local.type}</span>
           </div>
           <div>
             <span>Dimension</span>
-            <span>Replacement Dimension</span>
+            <span>{Local.dimension}</span>
           </div>
         </div>
       </InfoHeaderContainer>
       <InfoContent>
         <h1>Residents</h1>
-        <Content>
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-        </Content>
+        <Content></Content>
       </InfoContent>
     </LocalInfoContainer>
   )

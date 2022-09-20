@@ -19,7 +19,7 @@ export function Locations() {
       </InputsContainer>
       <LocalContainer>
         {Location.map(({ id, name, type }) => {
-          return <Local key={id} planet={type} name={name} />
+          return <Local key={id} id={id} planet={type} name={name} />
         })}
       </LocalContainer>
       <ButtonloadMore>Load More</ButtonloadMore>

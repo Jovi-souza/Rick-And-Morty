@@ -15,7 +15,7 @@ export function Episodes() {
       <Inputs placeholder="Filter by name or episode (ex. S01 or S01E02)" />
       <ListOfEpisodesContainer>
         {Episodes.map(({ id, name, episode }) => {
-          return <EpisodeInfo key={id} name={name} episode={episode} />
+          return <EpisodeInfo key={id} id={id} name={name} episode={episode} />
         })}
       </ListOfEpisodesContainer>
       <ButtonloadMore>Load More</ButtonloadMore>

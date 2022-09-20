@@ -12,13 +12,13 @@ interface CharactersProps {
 
 export function CharacterCard({ id, url, name, species }: CharactersProps) {
   const { fetchCharacterInfo } = useContext(CardsContext)
-  const teste = () => {
+  const getCharacter = () => {
     fetchCharacterInfo(id)
   }
 
   return (
     <CharacterCardContainer>
-      <NavLink to="/Characters/Info" onClick={teste}>
+      <NavLink to="/Characters/Info" onClick={getCharacter}>
         <img src={url} alt="" />
       </NavLink>
       <div>
