@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { api } from '../../../../lib/axios'
+import { useContext } from 'react'
+import { CardsContext } from '../../../../Contexts/characterContext'
 import {
   AvatarIcon,
   CharacterCardInfoContainer,
@@ -8,51 +8,13 @@ import {
   TablesRows,
 } from './styles'
 
-type locationType = {
-  name: string
-  url: string
-}
-
-type OrigionType = {
-  name: string
-  url: string
-}
-
-interface CharacterProps {
-  created: string
-  episode: string[]
-  gender: string
-  id: number
-  image: string
-  location: locationType
-  name: string
-  origin: OrigionType
-  species: string
-  status?: string
-  type?: string
-  url: string
-}
-
 export function CharacterCardInfo() {
-  const [Character, setCharacter] = useState({} as CharacterProps)
-  async function fetchCharacters() {
-    const response = await api.get(`character/${85}`)
-    const results = response.data
-    console.log(results)
-    setCharacter(results)
-  }
-
-  useEffect(() => {
-    fetchCharacters()
-  }, [])
-
-  const { image, name, gender, status, species, type } = Character
-
+  const { Character } = useContext(CardsContext)
   return (
     <CharacterCardInfoContainer>
       <AvatarIcon>
-        <img src={image} alt="" />
-        <h1>{name}</h1>
+        <img src={Character.image} alt="" />
+        <h1>{Character.name}</h1>
       </AvatarIcon>
       <CharacterCardInfoContent>
         <TablesInfo>
@@ -60,15 +22,15 @@ export function CharacterCardInfo() {
           <div>
             <TablesRows>
               <p>Gender</p>
-              <p>{gender}</p>
+              <p>{Character.gender}</p>
             </TablesRows>
             <TablesRows>
               <p>Status</p>
-              <p>{status}</p>
+              <p>{Character.status}</p>
             </TablesRows>
             <TablesRows>
               <p>Specie</p>
-              <p>{species}</p>
+              <p>{Character.species}</p>
             </TablesRows>
             <TablesRows>
               <p>Origin</p>
@@ -76,7 +38,7 @@ export function CharacterCardInfo() {
             </TablesRows>
             <TablesRows>
               <p>Type</p>
-              <p>{type}</p>
+              <p>{Character.type}</p>
             </TablesRows>
             <TablesRows>
               <p>Locations</p>

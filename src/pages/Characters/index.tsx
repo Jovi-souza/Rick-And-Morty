@@ -7,11 +7,12 @@ import {
   CharactersContent,
   InputsSearchContainer,
 } from './styles'
-import { CharacterContext } from '../../Contexts/characterContext'
+import { CardsContext } from '../../Contexts/characterContext'
 import { useContext } from 'react'
 
 export function Characters() {
-  const { Characters } = useContext(CharacterContext)
+  const { Characters } = useContext(CardsContext)
+
   return (
     <CharactersContainer>
       <img src={HomeLogo} alt="" />
@@ -24,7 +25,13 @@ export function Characters() {
       <CharactersContent>
         {Characters.map(({ id, image, name, species }) => {
           return (
-            <CharacterCard key={id} url={image} name={name} species={species} />
+            <CharacterCard
+              key={id}
+              url={image}
+              id={id}
+              name={name}
+              species={species}
+            />
           )
         })}
       </CharactersContent>
