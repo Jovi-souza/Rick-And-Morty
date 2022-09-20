@@ -7,9 +7,9 @@ import {
 import { ArrowLeft } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
-import { CardsContext } from '../../../../Contexts/characterContext'
+import { LocationsContext } from '../../../../Contexts/LocationsContext/context'
 export function LocalInfo() {
-  const { Local } = useContext(CardsContext)
+  const { Local } = useContext(LocationsContext)
   return (
     <LocalInfoContainer>
       <NavLink to="/Locations">

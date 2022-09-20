@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CardsContext } from '../../../../Contexts/characterContext'
+import { LocationsContext } from '../../../../Contexts/LocationsContext/context'
 import { LocalContainer } from './styles'
 
 interface LocalProps {
@@ -10,7 +10,7 @@ interface LocalProps {
 }
 
 export function Local({ id, name, planet }: LocalProps) {
-  const { fetchLocalInfo } = useContext(CardsContext)
+  const { fetchLocalInfo } = useContext(LocationsContext)
   const getLocal = () => {
     fetchLocalInfo(id)
   }

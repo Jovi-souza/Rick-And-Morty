@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { CardsContext } from '../../../../Contexts/characterContext'
+import { CharacterContext } from '../../../../Contexts/CharacterContext/context'
 import {
   AvatarIcon,
   CharacterCardInfoContainer,
@@ -9,7 +9,7 @@ import {
 } from './styles'
 
 export function CharacterCardInfo() {
-  const { Character } = useContext(CardsContext)
+  const { Character } = useContext(CharacterContext)
   return (
     <CharacterCardInfoContainer>
       <AvatarIcon>

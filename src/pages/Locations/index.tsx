@@ -4,10 +4,10 @@ import Portal from '../../assets/Portal.svg'
 import { Local } from './components/Local'
 import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
 import { useContext } from 'react'
-import { CardsContext } from '../../Contexts/characterContext'
+import { LocationsContext } from '../../Contexts/LocationsContext/context'
 
 export function Locations() {
-  const { Location } = useContext(CardsContext)
+  const { Location } = useContext(LocationsContext)
 
   return (
     <LocationsContainer>

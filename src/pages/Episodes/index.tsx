@@ -2,12 +2,12 @@ import { useContext } from 'react'
 import RickAndMorty from '../../assets/RickAndMorty.svg'
 import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
 import { Inputs } from '../../components/Input/styles'
-import { CardsContext } from '../../Contexts/characterContext'
+import { EpisodesContext } from '../../Contexts/EpisodesContext/context'
 import { EpisodeInfo } from './Episodes'
 import { EpisodesContainer, ListOfEpisodesContainer } from './styles'
 
 export function Episodes() {
-  const { Episodes } = useContext(CardsContext)
+  const { Episodes } = useContext(EpisodesContext)
 
   return (
     <EpisodesContainer>

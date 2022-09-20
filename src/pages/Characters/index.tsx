@@ -7,11 +7,11 @@ import {
   CharactersContent,
   InputsSearchContainer,
 } from './styles'
-import { CardsContext } from '../../Contexts/characterContext'
 import { useContext } from 'react'
+import { CharacterContext } from '../../Contexts/CharacterContext/context'
 
 export function Characters() {
-  const { Characters } = useContext(CardsContext)
+  const { Characters } = useContext(CharacterContext)
 
   return (
     <CharactersContainer>

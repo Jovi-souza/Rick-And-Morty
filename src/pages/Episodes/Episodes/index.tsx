@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CardsContext } from '../../../Contexts/characterContext'
+import { EpisodesContext } from '../../../Contexts/EpisodesContext/context'
 import { EpisodeInfoContainer } from './styles'
 
 interface EpisodeProps {
@@ -10,7 +10,7 @@ interface EpisodeProps {
 }
 
 export function EpisodeInfo({ episode, name, id }: EpisodeProps) {
-  const { fetchEpisodesInfo } = useContext(CardsContext)
+  const { fetchEpisodesInfo } = useContext(EpisodesContext)
   const getEpisode = () => {
     fetchEpisodesInfo(id)
   }

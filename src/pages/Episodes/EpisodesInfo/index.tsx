@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'phosphor-react'
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CardsContext } from '../../../Contexts/characterContext'
+import { EpisodesContext } from '../../../Contexts/EpisodesContext/context'
 import {
   Content,
   EpisodesInfocontainer,
@@ -10,7 +10,7 @@ import {
 } from './styles'
 
 export function EpisodesInfo() {
-  const { Episode } = useContext(CardsContext)
+  const { Episode } = useContext(EpisodesContext)
 
   return (
     <EpisodesInfocontainer>

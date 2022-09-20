@@ -1,7 +1,7 @@
 import { CharacterCardContainer } from './styles'
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
-import { CardsContext } from '../../Contexts/characterContext'
+import { CharacterContext } from '../../Contexts/CharacterContext/context'
 
 interface CharactersProps {
   name: string
@@ -11,7 +11,7 @@ interface CharactersProps {
 }
 
 export function CharacterCard({ id, url, name, species }: CharactersProps) {
-  const { fetchCharacterInfo } = useContext(CardsContext)
+  const { fetchCharacterInfo } = useContext(CharacterContext)
   const getCharacter = () => {
     fetchCharacterInfo(id)
   }
