@@ -4,13 +4,13 @@ import { useContext } from 'react'
 import { CharacterContext } from '../../Contexts/CharacterContext/context'
 
 interface CharactersProps {
-  name: string
+  nickName: string
   species: string
   url: string
   id: number
 }
 
-export function CharacterCard({ id, url, name, species }: CharactersProps) {
+export function CharacterCard({ id, url, nickName, species }: CharactersProps) {
   const { fetchCharacterInfo } = useContext(CharacterContext)
   const getCharacter = () => {
     fetchCharacterInfo(id)
@@ -22,7 +22,7 @@ export function CharacterCard({ id, url, name, species }: CharactersProps) {
         <img src={url} alt="" />
       </NavLink>
       <div>
-        <h2>{name}</h2>
+        <h2>{nickName}</h2>
         <span>{species}</span>
       </div>
     </CharacterCardContainer>

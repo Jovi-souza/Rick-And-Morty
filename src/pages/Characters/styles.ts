@@ -13,7 +13,7 @@ export const CharactersContainer = styled.div`
   }
 `
 
-export const InputsSearchContainer = styled.div`
+export const InputsSearchContainer = styled.form`
   display: flex;
   gap: 3rem;
 `

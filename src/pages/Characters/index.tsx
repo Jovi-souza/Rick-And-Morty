@@ -7,17 +7,38 @@ import {
   CharactersContent,
   InputsSearchContainer,
 } from './styles'
-import { useContext } from 'react'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { CharacterContext } from '../../Contexts/CharacterContext/context'
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+
+const searchFormSchema = zod.object({
+  queryName: zod.string(),
+})
+type searchFormInputs = zod.infer<typeof searchFormSchema>
 
 export function Characters() {
-  const { Characters } = useContext(CharacterContext)
+  const { Characters, searchCharacters } = useContext(CharacterContext)
+
+  function handleSearchCharacters(data: searchFormInputs) {
+    searchCharacters(data.queryName)
+    console.log('data')
+  }
+
+  const { register, handleSubmit } = useForm<searchFormInputs>({
+    resolver: zodResolver(searchFormSchema),
+  })
 
   return (
     <CharactersContainer>
       <img src={HomeLogo} alt="" />
-      <InputsSearchContainer>
-        <Inputs type="text" placeholder="Filter by name" />
+      <InputsSearchContainer onSubmit={handleSubmit(handleSearchCharacters)}>
+        <Inputs
+          type="text"
+          placeholder="Filter by name"
+          {...register('queryName')}
+        />
         <Inputs type="text" placeholder="Species" />
         <Inputs type="text" placeholder="Gender" />
         <Inputs type="text" placeholder="Status" />
@@ -29,7 +50,7 @@ export function Characters() {
               key={id}
               url={image}
               id={id}
-              name={name}
+              nickName={name}
               species={species}
             />
           )

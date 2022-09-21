@@ -35,6 +35,7 @@ interface CharactersProps {
 interface CharacterContextType {
   Characters: CharactersProps[]
   Character: CharactersProps
+  searchCharacters: (query?: string) => void
   fetchCharacterInfo: (data: number) => void
 }
 
@@ -50,6 +51,7 @@ export function CharactersContextProvider({ children }: childrenProps) {
 
   const fetchCharacters = useCallback(async () => {
     const response = await api.get('character')
+
     const getCharacters = response.data.results
 
     setCharacters(getCharacters)
@@ -60,6 +62,15 @@ export function CharactersContextProvider({ children }: childrenProps) {
     const getCharacter = response.data
 
     setCharacter(getCharacter)
+    console.log(getCharacter)
+  }
+
+  const searchCharacters = async (query?: string) => {
+    const response = await api.get(`character/?name=${query}&status=alive`)
+    const getCharacter = response.data
+
+    setCharacter(getCharacter)
+    console.log(getCharacter)
   }
 
   useEffect(() => {
@@ -71,6 +82,7 @@ export function CharactersContextProvider({ children }: childrenProps) {
       value={{
         Characters,
         Character,
+        searchCharacters,
         fetchCharacterInfo,
       }}
     >
