@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { EpisodesContext } from '../../../Contexts/EpisodesContext/context'
+import { EpisodesContext } from '../../../../Contexts/EpisodesContext/context'
 import { EpisodeInfoContainer } from './styles'
 
 interface EpisodeProps {

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 
 type locationType = {
@@ -32,10 +26,17 @@ interface CharactersProps {
   url: string
 }
 
+interface queryProps {
+  queryName: string
+  querySpecies?: string
+  queryGender?: string
+  queryStatus?: string
+}
+
 interface CharacterContextType {
   Characters: CharactersProps[]
   Character: CharactersProps
-  searchCharacters: (query?: string) => void
+  searchCharacters: (query: queryProps) => void
   fetchCharacterInfo: (data: number) => void
 }
 
@@ -49,33 +50,35 @@ export function CharactersContextProvider({ children }: childrenProps) {
   const [Characters, setCharacters] = useState<CharactersProps[]>([])
   const [Character, setCharacter] = useState({} as CharactersProps)
 
-  const fetchCharacters = useCallback(async () => {
+  async function fetchCharacters() {
     const response = await api.get('character')
+    const results = response.data.results
 
-    const getCharacters = response.data.results
+    setCharacters(results)
+  }
 
-    setCharacters(getCharacters)
-  }, [])
+  async function searchCharacters(query: queryProps) {
+    const { queryName, queryStatus, queryGender, querySpecies } = query
+    const response = await api.get(
+      `character/?name=${queryName}
+      &status=${queryStatus}
+      &species=${querySpecies}
+      &gender=${queryGender}`,
+    )
+    const results = response.data.results
+    setCharacters(results)
+  }
 
   const fetchCharacterInfo = async (data: number) => {
     const response = await api.get(`character/${data}`)
-    const getCharacter = response.data
+    const results = response.data
 
-    setCharacter(getCharacter)
-    console.log(getCharacter)
-  }
-
-  const searchCharacters = async (query?: string) => {
-    const response = await api.get(`character/?name=${query}&status=alive`)
-    const getCharacter = response.data
-
-    setCharacter(getCharacter)
-    console.log(getCharacter)
+    setCharacter(results)
   }
 
   useEffect(() => {
     fetchCharacters()
-  }, [fetchCharacters])
+  }, [])
 
   return (
     <CharacterContext.Provider

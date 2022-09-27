@@ -10,11 +10,6 @@ export const LocationsContainer = styled.div`
   }
 `
 
-export const InputsContainer = styled.div`
-  display: flex;
-  gap: 4rem;
-`
-
 export const LocalContainer = styled.div`
   display: flex;
   flex-wrap: wrap;

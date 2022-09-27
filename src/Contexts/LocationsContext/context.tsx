@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 
 interface LocationProps {
@@ -17,10 +11,17 @@ interface LocationProps {
   url: string
 }
 
+interface queryProps {
+  name: string
+  type: string
+  dimension: string
+}
+
 interface LocationsContextType {
   Location: LocationProps[]
   Local: LocationProps
   fetchLocalInfo: (data: number) => void
+  searchLocations: (query: queryProps) => void
 }
 
 interface childrenProps {
@@ -33,12 +34,19 @@ export function LocationsContextProvider({ children }: childrenProps) {
   const [Location, setLocation] = useState<LocationProps[]>([])
   const [Local, setLocal] = useState({} as LocationProps)
 
-  const fetchLocations = useCallback(async () => {
+  async function fetchLocations() {
     const response = await api.get('location')
     const getLocations = response.data.results
 
     setLocation(getLocations)
-  }, [])
+  }
+
+  async function searchLocations(query: queryProps) {
+    const response = await api.get(`location/?name=${query.name}`)
+    const results = response.data.results
+
+    setLocation(results)
+  }
 
   const fetchLocalInfo = async (data: number) => {
     const response = await api.get(`location/${data}`)
@@ -49,13 +57,14 @@ export function LocationsContextProvider({ children }: childrenProps) {
 
   useEffect(() => {
     fetchLocations()
-  }, [fetchLocations])
+  }, [])
 
   return (
     <LocationsContext.Provider
       value={{
         Location,
         Local,
+        searchLocations,
         fetchLocalInfo,
       }}
     >

@@ -1,10 +1,10 @@
-import { Inputs } from '../../components/Input/styles'
-import { InputsContainer, LocalContainer, LocationsContainer } from './styles'
+import { LocalContainer, LocationsContainer } from './styles'
 import Portal from '../../assets/Portal.svg'
 import { Local } from './components/Local'
 import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
 import { useContext } from 'react'
 import { LocationsContext } from '../../Contexts/LocationsContext/context'
+import { SearchForm } from './components/SearchForm'
 
 export function Locations() {
   const { Location } = useContext(LocationsContext)
@@ -12,11 +12,7 @@ export function Locations() {
   return (
     <LocationsContainer>
       <img src={Portal} alt="" />
-      <InputsContainer>
-        <Inputs type="text" placeholder="Filter by name" />
-        <Inputs type="text" />
-        <Inputs type="text" />
-      </InputsContainer>
+      <SearchForm />
       <LocalContainer>
         {Location.map(({ id, name, type }) => {
           return <Local key={id} id={id} planet={type} name={name} />
