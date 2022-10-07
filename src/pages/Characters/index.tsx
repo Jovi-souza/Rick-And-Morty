@@ -7,7 +7,7 @@ import { SearchForm } from './components/SearchForm'
 import { CharactersContainer, CharactersContent } from './styles'
 
 export function Characters() {
-  const { Characters } = useContext(CharacterContext)
+  const { Characters, NextPage } = useContext(CharacterContext)
   return (
     <CharactersContainer>
       <img src={HomeLogo} alt="" />
@@ -25,7 +25,7 @@ export function Characters() {
           )
         })}
       </CharactersContent>
-      <ButtonloadMore>Load More</ButtonloadMore>
+      <ButtonloadMore onClick={NextPage}>Load More</ButtonloadMore>
     </CharactersContainer>
   )
 }

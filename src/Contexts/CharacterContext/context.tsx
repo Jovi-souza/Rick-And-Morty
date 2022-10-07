@@ -2,13 +2,13 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 
 type locationType = {
-  name: string
-  url: string
+  name: string | undefined
+  url: string | undefined
 }
 
-type OrigionType = {
-  name: string
-  url: string
+type OriginType = {
+  name: string | undefined
+  url: string | undefined
 }
 
 interface CharactersProps {
@@ -19,23 +19,24 @@ interface CharactersProps {
   image: string
   location: locationType
   name: string
-  origin: OrigionType
+  origin: OriginType
   species: string
-  status?: string
-  type?: string
+  status: string
+  type: string
   url: string
 }
 
 interface queryProps {
   queryName: string
-  querySpecies?: string
-  queryGender?: string
-  queryStatus?: string
+  querySpecies: string
+  queryGender: string
+  queryStatus: string
 }
 
 interface CharacterContextType {
   Characters: CharactersProps[]
   Character: CharactersProps
+  NextPage: () => void
   searchCharacters: (query: queryProps) => void
   fetchCharacterInfo: (data: number) => void
 }
@@ -49,31 +50,45 @@ export const CharacterContext = createContext({} as CharacterContextType)
 export function CharactersContextProvider({ children }: childrenProps) {
   const [Characters, setCharacters] = useState<CharactersProps[]>([])
   const [Character, setCharacter] = useState({} as CharactersProps)
+  const [nextPage, setNextPage] = useState('')
 
   async function fetchCharacters() {
     const response = await api.get('character')
     const results = response.data.results
+    const pages = response.data.info.next
 
     setCharacters(results)
+    setNextPage(pages)
   }
 
   async function searchCharacters(query: queryProps) {
     const { queryName, queryStatus, queryGender, querySpecies } = query
-    const response = await api.get(
-      `character/?name=${queryName}
-      &status=${queryStatus}
-      &species=${querySpecies}
-      &gender=${queryGender}`,
-    )
+    const response = await api.get('character', {
+      params: {
+        name: queryName,
+        status: queryStatus,
+        species: querySpecies,
+        gender: queryGender,
+      },
+    })
+
     const results = response.data.results
     setCharacters(results)
   }
 
-  const fetchCharacterInfo = async (data: number) => {
+  async function fetchCharacterInfo(data: number) {
     const response = await api.get(`character/${data}`)
     const results = response.data
-
     setCharacter(results)
+  }
+
+  async function NextPage() {
+    const response = await api.get(`${nextPage}`)
+    const results = response.data.results
+    const pages = response.data.info.next
+    setCharacters(results)
+
+    setNextPage(pages)
   }
 
   useEffect(() => {
@@ -85,6 +100,7 @@ export function CharactersContextProvider({ children }: childrenProps) {
       value={{
         Characters,
         Character,
+        NextPage,
         searchCharacters,
         fetchCharacterInfo,
       }}
