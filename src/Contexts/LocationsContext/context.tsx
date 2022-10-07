@@ -46,10 +46,17 @@ export function LocationsContextProvider({ children }: childrenProps) {
   }
 
   async function searchLocations(query: queryProps) {
-    const response = await api.get(`location/?name=${query.name}`)
+    const response = await api.get('location', {
+      params: {
+        name: query.name,
+      },
+    })
+
     const results = response.data.results
+    const pages = response.data.info.next
 
     setLocation(results)
+    setNextPage(pages)
   }
 
   const fetchLocalInfo = async (data: number) => {

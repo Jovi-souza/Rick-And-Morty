@@ -71,8 +71,9 @@ export function CharactersContextProvider({ children }: childrenProps) {
         gender: queryGender,
       },
     })
-
+    const pages = response.data.info.next
     const results = response.data.results
+    setNextPage(pages)
     setCharacters(results)
   }
 

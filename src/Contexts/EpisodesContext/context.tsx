@@ -12,7 +12,7 @@ interface EpisodesProps {
 }
 
 interface queryProps {
-  query: string
+  name: string
 }
 
 interface EpisodesContextType {
@@ -44,10 +44,16 @@ export function EpisodesContextProvider({ children }: childrenProps) {
   }
 
   async function searchEpisode(query: queryProps) {
-    const response = await api.get(`episode/?name=${query.query}`)
+    const response = await api.get('episode', {
+      params: {
+        name: query.name,
+      },
+    })
     const getEpisodes = response.data.results
+    const pages = response.data.info.next
 
     setEpisodes(getEpisodes)
+    setNextPage(pages)
   }
 
   const fetchEpisodesInfo = async (data: number) => {
