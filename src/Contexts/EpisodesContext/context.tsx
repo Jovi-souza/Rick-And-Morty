@@ -20,6 +20,7 @@ interface EpisodesContextType {
   Episode: EpisodesProps
   fetchEpisodesInfo: (data: number) => void
   searchEpisode: (query: queryProps) => void
+  NextPage: () => void
 }
 
 export const EpisodesContext = createContext({} as EpisodesContextType)
@@ -31,12 +32,15 @@ interface childrenProps {
 export function EpisodesContextProvider({ children }: childrenProps) {
   const [Episodes, setEpisodes] = useState<EpisodesProps[]>([])
   const [Episode, setEpisode] = useState({} as EpisodesProps)
+  const [nextPage, setNextPage] = useState('')
 
   async function fetchEpisodes() {
     const response = await api.get('episode')
     const getEpisodes = response.data.results
+    const pages = response.data.info.next
 
     setEpisodes(getEpisodes)
+    setNextPage(pages)
   }
 
   async function searchEpisode(query: queryProps) {
@@ -53,6 +57,14 @@ export function EpisodesContextProvider({ children }: childrenProps) {
     setEpisode(getEpisode)
   }
 
+  async function NextPage() {
+    const response = await api.get(`${nextPage}`)
+    const results = response.data.results
+    const pages = response.data.info.next
+    setEpisodes(results)
+    setNextPage(pages)
+  }
+
   useEffect(() => {
     fetchEpisodes()
   }, [])
@@ -62,6 +74,7 @@ export function EpisodesContextProvider({ children }: childrenProps) {
       value={{
         Episodes,
         Episode,
+        NextPage,
         searchEpisode,
         fetchEpisodesInfo,
       }}

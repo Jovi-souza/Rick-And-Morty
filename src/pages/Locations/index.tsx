@@ -7,7 +7,7 @@ import { LocationsContext } from '../../Contexts/LocationsContext/context'
 import { SearchForm } from './components/SearchForm'
 
 export function Locations() {
-  const { Location } = useContext(LocationsContext)
+  const { Location, NextPage } = useContext(LocationsContext)
 
   return (
     <LocationsContainer>
@@ -18,7 +18,7 @@ export function Locations() {
           return <Local key={id} id={id} planet={type} name={name} />
         })}
       </LocalContainer>
-      <ButtonloadMore>Load More</ButtonloadMore>
+      <ButtonloadMore onClick={NextPage}>Load More</ButtonloadMore>
     </LocationsContainer>
   )
 }

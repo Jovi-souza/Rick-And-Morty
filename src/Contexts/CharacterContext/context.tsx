@@ -87,7 +87,6 @@ export function CharactersContextProvider({ children }: childrenProps) {
     const results = response.data.results
     const pages = response.data.info.next
     setCharacters(results)
-
     setNextPage(pages)
   }
 

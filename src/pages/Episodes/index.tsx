@@ -7,7 +7,7 @@ import { EpisodesContainer, ListOfEpisodesContainer } from './styles'
 import { SearchForm } from './components/SearchEpsisode'
 
 export function Episodes() {
-  const { Episodes } = useContext(EpisodesContext)
+  const { Episodes, NextPage } = useContext(EpisodesContext)
 
   return (
     <EpisodesContainer>
@@ -18,7 +18,7 @@ export function Episodes() {
           return <EpisodeInfo key={id} id={id} name={name} episode={episode} />
         })}
       </ListOfEpisodesContainer>
-      <ButtonloadMore>Load More</ButtonloadMore>
+      <ButtonloadMore onClick={NextPage}>Load More</ButtonloadMore>
     </EpisodesContainer>
   )
 }
