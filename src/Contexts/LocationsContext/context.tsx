@@ -11,17 +11,15 @@ interface LocationProps {
   url: string
 }
 
-interface queryProps {
+interface queryTypes {
   name: string
-  type: string
-  dimension: string
 }
 
 interface LocationsContextType {
   Location: LocationProps[]
   Local: LocationProps
   fetchLocalInfo: (data: number) => void
-  searchLocations: (query: queryProps) => void
+  searchLocations: (query: queryTypes) => void
   NextPage: () => void
 }
 
@@ -45,7 +43,7 @@ export function LocationsContextProvider({ children }: childrenProps) {
     setNextPage(pages)
   }
 
-  async function searchLocations(query: queryProps) {
+  async function searchLocations(query: queryTypes) {
     const response = await api.get('location', {
       params: {
         name: query.name,

@@ -13,12 +13,13 @@ type searchFormInput = zod.infer<typeof searchFormSchema>
 
 export function SearchForm() {
   const { searchEpisode } = useContext(EpisodesContext)
-  const { register, handleSubmit } = useForm<searchFormInput>({
+  const { register, handleSubmit, reset } = useForm<searchFormInput>({
     resolver: zodResolver(searchFormSchema),
   })
 
   function handleSearchEpisode(query: searchFormInput) {
     searchEpisode(query)
+    reset()
   }
 
   return (

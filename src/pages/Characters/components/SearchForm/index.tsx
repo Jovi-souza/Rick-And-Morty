@@ -17,12 +17,13 @@ type searchFormInputs = zod.infer<typeof searchFormSchema>
 
 export function SearchForm() {
   const { searchCharacters } = useContext(CharacterContext)
-  const { register, handleSubmit } = useForm<searchFormInputs>({
+  const { register, handleSubmit, reset } = useForm<searchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   })
 
   function handleSearchCharacters(query: searchFormInputs) {
     searchCharacters(query)
+    reset()
   }
 
   return (

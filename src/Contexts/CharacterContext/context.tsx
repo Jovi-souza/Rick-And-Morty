@@ -26,7 +26,7 @@ interface CharactersProps {
   url: string
 }
 
-interface queryProps {
+interface queryType {
   queryName: string
   querySpecies: string
   queryGender: string
@@ -37,7 +37,7 @@ interface CharacterContextType {
   Characters: CharactersProps[]
   Character: CharactersProps
   NextPage: () => void
-  searchCharacters: (query: queryProps) => void
+  searchCharacters: (query: queryType) => void
   fetchCharacterInfo: (data: number) => void
 }
 
@@ -61,7 +61,7 @@ export function CharactersContextProvider({ children }: childrenProps) {
     setNextPage(pages)
   }
 
-  async function searchCharacters(query: queryProps) {
+  async function searchCharacters(query: queryType) {
     const { queryName, queryStatus, queryGender, querySpecies } = query
     const response = await api.get('character', {
       params: {
