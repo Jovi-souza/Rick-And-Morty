@@ -1,10 +1,9 @@
-import { InputsSearchContainer } from './styles'
-import { Inputs } from '../../../../components/Input/styles'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react'
 import { CharacterContext } from '../../../../Contexts/CharacterContext/context'
+import { Button } from '../../../../components/Buttons/button'
 
 const searchFormSchema = zod.object({
   queryName: zod.string(),
@@ -27,16 +26,35 @@ export function SearchForm() {
   }
 
   return (
-    <InputsSearchContainer onSubmit={handleSubmit(handleSearchCharacters)}>
-      <Inputs
+    <form
+      onSubmit={handleSubmit(handleSearchCharacters)}
+      className="flex flex-col gap-4 w-full max-w-[20rem] justify-center lg:flex-row"
+    >
+      <input
         type="text"
         placeholder="Filter by name"
         {...register('queryName')}
+        className="border px-4 py-1 rounded outline-green-500"
       />
-      <Inputs type="text" placeholder="Species" {...register('querySpecies')} />
-      <Inputs type="text" placeholder="Gender" {...register('queryGender')} />
-      <Inputs type="text" placeholder="Status" {...register('queryStatus')} />
-      <button type="submit">Search</button>
-    </InputsSearchContainer>
+      <input
+        type="text"
+        placeholder="Species"
+        {...register('querySpecies')}
+        className="border px-4 py-1 rounded outline-green-500"
+      />
+      <input
+        type="text"
+        placeholder="Gender"
+        {...register('queryGender')}
+        className="border px-4 py-1 rounded outline-green-500"
+      />
+      <input
+        type="text"
+        placeholder="Status"
+        {...register('queryStatus')}
+        className="border px-4 py-1 rounded outline-green-500"
+      />
+      <Button content="Seatch" type="submit" model="Search" />
+    </form>
   )
 }

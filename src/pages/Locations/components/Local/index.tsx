@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { LocationsContext } from '../../../../Contexts/LocationsContext/context'
-import { LocalContainer } from './styles'
 
 interface LocalProps {
   name: string
@@ -15,11 +14,15 @@ export function Local({ id, name, planet }: LocalProps) {
     fetchLocalInfo(id)
   }
   return (
-    <NavLink to="/Locations/Info" onClick={getLocal}>
-      <LocalContainer>
+    <NavLink
+      to="/Locations/Info"
+      onClick={getLocal}
+      className="w-full max-w-[16rem] p-4 rounded shadow-lg"
+    >
+      <div>
         <h1>{name}</h1>
-        <p>{planet}</p>
-      </LocalContainer>
+        <p>Type: {planet}</p>
+      </div>
     </NavLink>
   )
 }

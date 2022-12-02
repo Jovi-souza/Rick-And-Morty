@@ -1,6 +1,4 @@
 import { useContext } from 'react'
-import { Inputs } from '../../../../components/Input/styles'
-import { FormContainer } from './styles'
 import { LocationsContext } from '../../../../Contexts/LocationsContext/context'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -24,11 +22,11 @@ export function SearchForm() {
   }
 
   return (
-    <FormContainer onSubmit={handleSubmit(handleSearchLocations)}>
-      <Inputs
+    <div onSubmit={handleSubmit(handleSearchLocations)}>
+      <div
         placeholder="Filter by name or episode (ex. S01 or S01E02)"
         {...register('name')}
       />
-    </FormContainer>
+    </div>
   )
 }

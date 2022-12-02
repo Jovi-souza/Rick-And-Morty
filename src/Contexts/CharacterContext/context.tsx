@@ -2,13 +2,13 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 
 type locationType = {
-  name: string | undefined
-  url: string | undefined
+  name: string
+  url: string
 }
 
 type OriginType = {
-  name: string | undefined
-  url: string | undefined
+  name: string
+  url: string
 }
 
 interface CharactersProps {
@@ -56,7 +56,6 @@ export function CharactersContextProvider({ children }: childrenProps) {
     const response = await api.get('character')
     const results = response.data.results
     const pages = response.data.info.next
-
     setCharacters(results)
     setNextPage(pages)
   }

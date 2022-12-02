@@ -1,62 +1,41 @@
 import { useContext } from 'react'
 import { CharacterContext } from '../../../../Contexts/CharacterContext/context'
-import {
-  AvatarIcon,
-  CharacterCardInfoContainer,
-  CharacterCardInfoContent,
-  TablesInfo,
-  TablesRows,
-} from './styles'
 
 export function CharacterCardInfo() {
   const { Character } = useContext(CharacterContext)
   return (
-    <CharacterCardInfoContainer>
-      <AvatarIcon>
-        <img src={Character.image} alt="" />
-        <h1>{Character.name}</h1>
-      </AvatarIcon>
-      <CharacterCardInfoContent>
-        <TablesInfo>
-          <h1>Informations</h1>
-          <div>
-            <TablesRows>
+    <div className="flex flex-col gap-12 justify-center items-center p-4">
+      <div className="flex flex-col justify-center items-center">
+        <img src={Character.image} alt="" className="rounded-full" />
+        <h1 className="text-center text-xl font-semibold">{Character.name}</h1>
+      </div>
+      <div className="flex flex-col gap-4 w-full max-w-xs">
+        <div>
+          <h1 className="text-xl font-semibold">Informations</h1>
+          <div className="flex flex-col gap-4">
+            <div className="border-b border-gray-500">
               <p>Gender</p>
-              <p>{Character.gender}</p>
-            </TablesRows>
-            <TablesRows>
+              <p className="text-gray-400">{Character.gender}</p>
+            </div>
+            <div className="border-b border-gray-500">
               <p>Status</p>
-              <p>{Character.status}</p>
-            </TablesRows>
-            <TablesRows>
+              <p className="text-gray-400">{Character.status}</p>
+            </div>
+            <div className="border-b border-gray-500">
               <p>Specie</p>
-              <p>{Character.species}</p>
-            </TablesRows>
-            <TablesRows>
+              <p className="text-gray-400">{Character.species}</p>
+            </div>
+            <div className="border-b border-gray-500">
               <p>Origin</p>
-              <p></p>
-            </TablesRows>
-            <TablesRows>
-              <p>Type</p>
-              <p>{Character.type}</p>
-            </TablesRows>
-            <TablesRows>
+              <p className="text-gray-400">{Character.origin?.name}</p>
+            </div>
+            <div className="border-b border-gray-500">
               <p>Locations</p>
-              <p></p>
-            </TablesRows>
+              <p className="text-gray-400">{Character.location?.name}</p>
+            </div>
           </div>
-        </TablesInfo>
-        <TablesInfo>
-          <h1>Episodes</h1>
-          <div>
-            <TablesRows>
-              <p>S01E01</p>
-              <p>Pilot</p>
-              <p>DECEMBER 2.2013</p>
-            </TablesRows>
-          </div>
-        </TablesInfo>
-      </CharacterCardInfoContent>
-    </CharacterCardInfoContainer>
+        </div>
+      </div>
+    </div>
   )
 }

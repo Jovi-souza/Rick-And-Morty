@@ -1,19 +1,19 @@
-import { useContext } from 'react'
 import HomeLogo from '../../assets/HomeSvg.svg'
-import { ButtonloadMore } from '../../components/buttonLoadMore/styles'
-import { CharacterCard } from '../../components/CharacterCard'
+
+import { useContext } from 'react'
 import { CharacterContext } from '../../Contexts/CharacterContext/context'
+import { CharacterCard } from '../../components/CharacterCard'
 import { SearchForm } from './components/SearchForm'
-import { CharactersContainer, CharactersContent } from './styles'
+import { Button } from '../../components/Buttons/button'
 
 export function Characters() {
   const { Characters, NextPage } = useContext(CharacterContext)
   return (
-    <CharactersContainer>
-      <img src={HomeLogo} alt="" />
+    <div className="flex flex-col gap-8 p-4 items-center justify-center">
+      <img src={HomeLogo} alt="" className="mt-4" />
       <SearchForm />
-      <CharactersContent>
-        {Characters.map(({ id, image, name, species }) => {
+      <div className="flex flex-wrap gap-8 items-center justify-center max-w-[110rem]">
+        {Characters.map(({ id, image, name, species, status }) => {
           return (
             <CharacterCard
               key={id}
@@ -21,11 +21,17 @@ export function Characters() {
               id={id}
               nickName={name}
               species={species}
+              status={status}
             />
           )
         })}
-      </CharactersContent>
-      <ButtonloadMore onClick={NextPage}>Load More</ButtonloadMore>
-    </CharactersContainer>
+      </div>
+      <Button
+        content="Load more"
+        onclick={NextPage}
+        model="page"
+        type="button"
+      />
+    </div>
   )
 }

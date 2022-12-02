@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
-import { Inputs } from '../../../../components/Input/styles'
 import { EpisodesContext } from '../../../../Contexts/EpisodesContext/context'
 
 const searchFormSchema = zod.object({
@@ -24,9 +23,10 @@ export function SearchForm() {
 
   return (
     <form onSubmit={handleSubmit(handleSearchEpisode)}>
-      <Inputs
+      <input
         placeholder="Filter by name or episode (ex. S01 or S01E02)"
         {...register('query')}
+        className="px-4 py-1 border border-gray-400 rounded outline-green-500"
       />
     </form>
   )

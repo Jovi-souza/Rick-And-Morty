@@ -3,7 +3,7 @@ import { Header } from '../../components/Header'
 
 export function DefaultLayout() {
   return (
-    <div>
+    <div className="max-w-screen-xl m-auto">
       <Header />
       <Outlet />
     </div>

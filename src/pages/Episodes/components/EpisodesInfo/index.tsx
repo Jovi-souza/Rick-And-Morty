@@ -2,41 +2,29 @@ import { ArrowLeft } from 'phosphor-react'
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { EpisodesContext } from '../../../../Contexts/EpisodesContext/context'
-import {
-  Content,
-  EpisodesInfocontainer,
-  InfoContent,
-  InfoHeaderContainer,
-} from './styles'
 
 export function EpisodesInfo() {
   const { Episode } = useContext(EpisodesContext)
 
   return (
-    <EpisodesInfocontainer>
+    <div className="flex flex-col gap-8 mt-10">
       <NavLink to="/Episodes">
-        <button>
+        <button className="flex gap-2 border rounded px-4 py-2">
           <ArrowLeft size={24} weight="bold" />
           Go Back
         </button>
       </NavLink>
-      <InfoHeaderContainer>
-        <h1>{Episode.name}</h1>
-        <div>
+      <div className="w-screen max-w-xs m-auto shadow-lg p-4">
+        <h1 className="text-green-500 text-lg font-bold">{Episode.name}</h1>
+        <div className="text-gray-500">
           <div>
-            <span>Episode</span>
             <span>{Episode.episode}</span>
           </div>
           <div>
-            <span>Date</span>
             <span>{Episode.air_date}</span>
           </div>
         </div>
-      </InfoHeaderContainer>
-      <InfoContent>
-        <h1>Residents</h1>
-        <Content></Content>
-      </InfoContent>
-    </EpisodesInfocontainer>
+      </div>
+    </div>
   )
 }

@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { EpisodesContext } from '../../../../Contexts/EpisodesContext/context'
-import { EpisodeInfoContainer } from './styles'
 
 interface EpisodeProps {
   name: string
@@ -15,11 +14,15 @@ export function EpisodeInfo({ episode, name, id }: EpisodeProps) {
     fetchEpisodesInfo(id)
   }
   return (
-    <NavLink to="/Episodes/info" onClick={getEpisode}>
-      <EpisodeInfoContainer>
+    <NavLink
+      to="/Episodes/info"
+      onClick={getEpisode}
+      className="w-full max-w-[16rem] p-4 rounded shadow-lg"
+    >
+      <div>
         <h2>{name}</h2>
         <p>{episode}</p>
-      </EpisodeInfoContainer>
+      </div>
     </NavLink>
   )
 }
