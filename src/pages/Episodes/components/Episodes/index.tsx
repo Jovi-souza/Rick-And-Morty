@@ -1,6 +1,4 @@
-import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { EpisodesContext } from '../../../../Contexts/EpisodesContext/context'
 
 interface EpisodeProps {
   name: string
@@ -9,14 +7,9 @@ interface EpisodeProps {
 }
 
 export function EpisodeInfo({ episode, name, id }: EpisodeProps) {
-  const { fetchEpisodesInfo } = useContext(EpisodesContext)
-  const getEpisode = () => {
-    fetchEpisodesInfo(id)
-  }
   return (
     <NavLink
-      to="/Episodes/info"
-      onClick={getEpisode}
+      to={`/Episodes/info/${id}`}
       className="w-full max-w-[16rem] p-4 rounded shadow-lg"
     >
       <div>

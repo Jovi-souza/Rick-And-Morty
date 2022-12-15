@@ -1,9 +1,16 @@
 import { ArrowLeft } from 'phosphor-react'
-import { NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import { LocationsContext } from '../../../../Contexts/LocationsContext/context'
+import { useQuery } from 'react-query'
+import { NavLink, useParams } from 'react-router-dom'
+import { api } from '../../../../lib/axios'
+
 export function LocalInfo() {
-  const { Local } = useContext(LocationsContext)
+  const { id } = useParams()
+
+  const { data: local } = useQuery('local info', async () => {
+    const { data } = await api.get(`location/${id}`)
+    return data
+  })
+
   return (
     <div className="flex flex-col gap-8 mt-10">
       <NavLink to="/Locations">
@@ -13,21 +20,17 @@ export function LocalInfo() {
         </button>
       </NavLink>
       <div className="w-screen max-w-xs m-auto shadow-lg p-4">
-        <h1 className="text-green-500 text-lg font-bold">{Local.name}</h1>
+        <h1 className="text-green-500 text-lg font-bold">{local?.name}</h1>
         <div className="text-gray-500">
           <div>
             <span>Type: </span>
-            <span>{Local.type}</span>
+            <span>{local?.type}</span>
           </div>
           <div>
-            <span>{Local.dimension}</span>
+            <span>{local?.dimension}</span>
           </div>
         </div>
       </div>
-      {/* <div className="bg-blue-500 w-screen max-w-xs m-auto">
-        <h1>Residents</h1>
-        <div></div>
-      </div> */}
     </div>
   )
 }

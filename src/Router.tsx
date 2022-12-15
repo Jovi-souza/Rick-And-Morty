@@ -12,11 +12,11 @@ export function Router() {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Characters />} />
-        <Route path="/Characters/Info" element={<CharacterCardInfo />} />
+        <Route path="/Characters/Info/:id" element={<CharacterCardInfo />} />
         <Route path="/Locations" element={<Locations />} />
-        <Route path="/Locations/Info" element={<LocalInfo />} />
+        <Route path="/Locations/Info/:id" element={<LocalInfo />} />
         <Route path="/Episodes" element={<Episodes />} />
-        <Route path="/Episodes/Info" element={<EpisodesInfo />} />
+        <Route path="/Episodes/Info/:id" element={<EpisodesInfo />} />
       </Route>
     </Routes>
   )

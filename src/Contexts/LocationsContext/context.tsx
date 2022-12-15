@@ -1,26 +1,30 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 import { api } from '../../lib/axios'
+import { useQuery } from 'react-query'
 
 interface LocationProps {
-  created: string
-  dimension: string
-  id: number
-  name: string
-  residents: string[]
-  type: string
-  url: string
-}
-
-interface queryTypes {
-  name: string
+  info: {
+    next: string
+    prev: string
+  }
+  results: {
+    created: string
+    dimension: string
+    id: number
+    name: string
+    residents: string[]
+    type: string
+    url: string
+  }[]
 }
 
 interface LocationsContextType {
-  Location: LocationProps[]
-  Local: LocationProps
-  fetchLocalInfo: (data: number) => void
-  searchLocations: (query: queryTypes) => void
+  fetchLocation: LocationProps | undefined
+  page: number
+  isPreviousData: boolean
+  GetFilter: (query: string) => void
   NextPage: () => void
+  PrevPage: () => void
 }
 
 interface childrenProps {
@@ -30,60 +34,48 @@ interface childrenProps {
 export const LocationsContext = createContext({} as LocationsContextType)
 
 export function LocationsContextProvider({ children }: childrenProps) {
-  const [Location, setLocation] = useState<LocationProps[]>([])
-  const [Local, setLocal] = useState({} as LocationProps)
-  const [nextPage, setNextPage] = useState('')
+  const [filter, setFilter] = useState<string>()
+  const [page, setPage] = useState(1)
 
-  async function fetchLocations() {
-    const response = await api.get('location')
-    const getLocations = response.data.results
-    const pages = response.data.info.next
-
-    setLocation(getLocations)
-    setNextPage(pages)
+  function GetFilter(query: string) {
+    setFilter(query)
+    setPage(1)
   }
 
-  async function searchLocations(query: queryTypes) {
-    const response = await api.get('location', {
-      params: {
-        name: query.name,
-      },
-    })
+  const { data: fetchLocation, isPreviousData } = useQuery<LocationProps>(
+    ['episodes', page, filter],
+    async () => {
+      const { data } = await api.get(`location/?page=${page}`, {
+        params: {
+          name: filter,
+        },
+      })
+      return data
+    },
+    {
+      keepPreviousData: true,
+    },
+  )
 
-    const results = response.data.results
-    const pages = response.data.info.next
-
-    setLocation(results)
-    setNextPage(pages)
+  function NextPage() {
+    if (!isPreviousData && fetchLocation?.info.next) {
+      setPage((old) => old + 1)
+    }
   }
 
-  const fetchLocalInfo = async (data: number) => {
-    const response = await api.get(`location/${data}`)
-    const getLocal = response.data
-
-    setLocal(getLocal)
+  function PrevPage() {
+    setPage((old) => Math.max(old - 1, 0))
   }
-
-  async function NextPage() {
-    const response = await api.get(`${nextPage}`)
-    const results = response.data.results
-    const pages = response.data.info.next
-    setLocation(results)
-    setNextPage(pages)
-  }
-
-  useEffect(() => {
-    fetchLocations()
-  }, [])
 
   return (
     <LocationsContext.Provider
       value={{
-        Location,
-        Local,
+        fetchLocation,
+        page,
+        isPreviousData,
+        GetFilter,
         NextPage,
-        searchLocations,
-        fetchLocalInfo,
+        PrevPage,
       }}
     >
       {children}

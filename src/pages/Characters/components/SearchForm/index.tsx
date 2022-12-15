@@ -6,52 +6,52 @@ import { CharacterContext } from '../../../../Contexts/CharacterContext/context'
 import { Button } from '../../../../components/Buttons/button'
 
 const searchFormSchema = zod.object({
-  queryName: zod.string(),
-  querySpecies: zod.string(),
-  queryGender: zod.string(),
-  queryStatus: zod.string(),
+  name: zod.string(),
+  species: zod.string(),
+  gender: zod.string(),
+  status: zod.string(),
 })
 
 type searchFormInputs = zod.infer<typeof searchFormSchema>
 
 export function SearchForm() {
-  const { searchCharacters } = useContext(CharacterContext)
+  const { getFilters } = useContext(CharacterContext)
   const { register, handleSubmit, reset } = useForm<searchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   })
 
-  function handleSearchCharacters(query: searchFormInputs) {
-    searchCharacters(query)
+  function handleGetFilters(filters: searchFormInputs) {
+    getFilters(filters)
     reset()
   }
 
   return (
     <form
-      onSubmit={handleSubmit(handleSearchCharacters)}
+      onSubmit={handleSubmit(handleGetFilters)}
       className="flex flex-col gap-4 w-full max-w-[20rem] justify-center lg:flex-row"
     >
       <input
         type="text"
         placeholder="Filter by name"
-        {...register('queryName')}
+        {...register('name')}
         className="border px-4 py-1 rounded outline-green-500"
       />
       <input
         type="text"
         placeholder="Species"
-        {...register('querySpecies')}
-        className="border px-4 py-1 rounded outline-green-500"
+        {...register('species')}
+        className="border px-4 gender-1 rounded outline-green-500"
       />
       <input
         type="text"
         placeholder="Gender"
-        {...register('queryGender')}
+        {...register('gender')}
         className="border px-4 py-1 rounded outline-green-500"
       />
       <input
         type="text"
         placeholder="Status"
-        {...register('queryStatus')}
+        {...register('status')}
         className="border px-4 py-1 rounded outline-green-500"
       />
       <Button content="Seatch" type="submit" model="Search" />

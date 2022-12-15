@@ -1,92 +1,81 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 import { api } from '../../lib/axios'
+import { useQuery } from 'react-query'
 
 interface EpisodesProps {
-  id: 1
-  name: string
-  episode: string
-  characters: string[]
-  url: string
-  created: string
-  air_date: string
-}
-
-interface queryProps {
-  query: string
+  info: {
+    next: string
+    prev: string
+  }
+  results: {
+    id: number
+    name: string
+    episode: string
+  }[]
 }
 
 interface EpisodesContextType {
-  Episodes: EpisodesProps[]
-  Episode: EpisodesProps
-  fetchEpisodesInfo: (data: number) => void
-  searchEpisode: (query: queryProps) => void
+  fetchEpisodes: EpisodesProps | undefined
+  page: number
   NextPage: () => void
+  PrevPage: () => void
+  isPreviousData: boolean
+  GetFilter: (query: string) => void
 }
-
-export const EpisodesContext = createContext({} as EpisodesContextType)
 
 interface childrenProps {
   children: ReactNode
 }
 
+export const EpisodesContext = createContext({} as EpisodesContextType)
+
 export function EpisodesContextProvider({ children }: childrenProps) {
-  const [Episodes, setEpisodes] = useState<EpisodesProps[]>([])
-  const [Episode, setEpisode] = useState({} as EpisodesProps)
-  const [nextPage, setNextPage] = useState('')
+  const [filter, setFilter] = useState<string>()
+  const [page, setPage] = useState(1)
 
-  async function fetchEpisodes() {
-    const response = await api.get('episode')
-    const getEpisodes = response.data.results
-    const pages = response.data.info.next
-
-    setEpisodes(getEpisodes)
-    setNextPage(pages)
+  function GetFilter(query: string) {
+    setFilter(query)
+    setPage(1)
   }
 
-  async function searchEpisode(query: queryProps) {
-    const response = await api.get('episode', {
-      params: {
-        name: query.query,
-      },
-    })
-    const getEpisodes = response.data.results
-    const pages = response.data.info.next
+  const { data: fetchEpisodes, isPreviousData } = useQuery<EpisodesProps>(
+    ['episodes', page, filter],
+    async () => {
+      const { data } = await api.get(`episode/?page=${page}`, {
+        params: {
+          name: filter,
+        },
+      })
+      return data
+    },
+    {
+      keepPreviousData: true,
+    },
+  )
 
-    setEpisodes(getEpisodes)
-    setNextPage(pages)
+  function NextPage() {
+    if (!isPreviousData && fetchEpisodes?.info.next) {
+      setPage((old) => old + 1)
+    }
   }
 
-  const fetchEpisodesInfo = async (data: number) => {
-    const response = await api.get(`episode/${data}`)
-    const getEpisode = response.data
-
-    setEpisode(getEpisode)
+  function PrevPage() {
+    setPage((old) => Math.max(old - 1, 0))
   }
-
-  async function NextPage() {
-    const response = await api.get(`${nextPage}`)
-    const results = response.data.results
-    const pages = response.data.info.next
-
-    setEpisodes(results)
-    setNextPage(pages)
-  }
-
-  useEffect(() => {
-    fetchEpisodes()
-  }, [])
 
   return (
     <EpisodesContext.Provider
       value={{
-        Episodes,
-        Episode,
+        fetchEpisodes,
+        page,
+        isPreviousData,
         NextPage,
-        searchEpisode,
-        fetchEpisodesInfo,
+        PrevPage,
+        GetFilter,
       }}
     >
       {children}
     </EpisodesContext.Provider>
   )
 }
+// 93

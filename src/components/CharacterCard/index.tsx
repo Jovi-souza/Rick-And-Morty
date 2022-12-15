@@ -1,6 +1,4 @@
 import { NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import { CharacterContext } from '../../Contexts/CharacterContext/context'
 
 interface CharactersProps {
   nickName: string
@@ -17,15 +15,9 @@ export function CharacterCard({
   species,
   status,
 }: CharactersProps) {
-  const { fetchCharacterInfo } = useContext(CharacterContext)
-
-  const getCharacter = () => {
-    fetchCharacterInfo(id)
-  }
-
   return (
     <div className="flex flex-col rounded-lg shadow-lg">
-      <NavLink to="/Characters/Info" onClick={getCharacter}>
+      <NavLink to={`/Characters/info/${id}`}>
         <img src={url} alt="" className="rounded-t-lg" />
       </NavLink>
       <div className="p-4">

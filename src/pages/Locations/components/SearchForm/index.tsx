@@ -11,22 +11,23 @@ const searchFormSchema = zod.object({
 type searchFormInputs = zod.infer<typeof searchFormSchema>
 
 export function SearchForm() {
-  const { searchLocations } = useContext(LocationsContext)
+  const { GetFilter } = useContext(LocationsContext)
   const { register, handleSubmit, reset } = useForm<searchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   })
 
   function handleSearchLocations(query: searchFormInputs) {
-    searchLocations(query)
+    GetFilter(query.name)
     reset()
   }
 
   return (
-    <div onSubmit={handleSubmit(handleSearchLocations)}>
-      <div
+    <form onSubmit={handleSubmit(handleSearchLocations)}>
+      <input
         placeholder="Filter by name or episode (ex. S01 or S01E02)"
         {...register('name')}
+        className="px-4 py-1 border border-gray-400 rounded outline-green-500"
       />
-    </div>
+    </form>
   )
 }

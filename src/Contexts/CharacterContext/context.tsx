@@ -1,44 +1,44 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
+
+import { useQuery } from 'react-query'
 import { api } from '../../lib/axios'
 
-type locationType = {
+interface filtersType {
   name: string
-  url: string
-}
-
-type OriginType = {
-  name: string
-  url: string
+  species: string
+  gender: string
+  status: string
 }
 
 interface CharactersProps {
-  created: string
-  episode: string[]
-  gender: string
-  id: number
-  image: string
-  location: locationType
-  name: string
-  origin: OriginType
-  species: string
-  status: string
-  type: string
-  url: string
-}
-
-interface queryType {
-  queryName: string
-  querySpecies: string
-  queryGender: string
-  queryStatus: string
+  info: {
+    next: string
+    prev: string
+  }
+  results: {
+    created: string
+    episode: string[]
+    gender: string
+    id: number
+    image: string
+    location: { name: string; url: string }
+    name: string
+    origin: { name: string; url: string }
+    species: string
+    status: string
+    type: string
+    url: string
+  }[]
 }
 
 interface CharacterContextType {
-  Characters: CharactersProps[]
-  Character: CharactersProps
+  fetchCharacters: CharactersProps | undefined
+  filters: filtersType
+  isPreviousData: boolean
+  page: number
   NextPage: () => void
-  searchCharacters: (query: queryType) => void
-  fetchCharacterInfo: (data: number) => void
+  PrevPage: () => void
+  getFilters: (filters: filtersType) => void
 }
 
 interface childrenProps {
@@ -48,60 +48,54 @@ interface childrenProps {
 export const CharacterContext = createContext({} as CharacterContextType)
 
 export function CharactersContextProvider({ children }: childrenProps) {
-  const [Characters, setCharacters] = useState<CharactersProps[]>([])
-  const [Character, setCharacter] = useState({} as CharactersProps)
-  const [nextPage, setNextPage] = useState('')
+  const [page, setPage] = useState(1)
+  const [filters, setFilters] = useState({} as filtersType)
 
-  async function fetchCharacters() {
-    const response = await api.get('character')
-    const results = response.data.results
-    const pages = response.data.info.next
-    setCharacters(results)
-    setNextPage(pages)
+  function getFilters(filters: filtersType) {
+    setFilters(filters)
+    setPage(1)
   }
 
-  async function searchCharacters(query: queryType) {
-    const { queryName, queryStatus, queryGender, querySpecies } = query
-    const response = await api.get('character', {
-      params: {
-        name: queryName,
-        status: queryStatus,
-        species: querySpecies,
-        gender: queryGender,
-      },
-    })
-    const pages = response.data.info.next
-    const results = response.data.results
-    setNextPage(pages)
-    setCharacters(results)
+  const { data: fetchCharacters, isPreviousData } = useQuery<CharactersProps>(
+    ['characters', page, filters],
+    async () => {
+      const { name, gender, species, status } = filters
+      const { data } = await api.get(`character/?page=${page}`, {
+        params: {
+          name,
+          status,
+          species,
+          gender,
+        },
+      })
+      const results = data
+      return results
+    },
+    {
+      keepPreviousData: true,
+    },
+  )
+
+  function NextPage() {
+    if (!isPreviousData && fetchCharacters?.info.next) {
+      setPage((old) => old + 1)
+    }
   }
 
-  async function fetchCharacterInfo(data: number) {
-    const response = await api.get(`character/${data}`)
-    const results = response.data
-    setCharacter(results)
+  function PrevPage() {
+    setPage((old) => Math.max(old - 1, 0))
   }
-
-  async function NextPage() {
-    const response = await api.get(`${nextPage}`)
-    const results = response.data.results
-    const pages = response.data.info.next
-    setCharacters(results)
-    setNextPage(pages)
-  }
-
-  useEffect(() => {
-    fetchCharacters()
-  }, [])
 
   return (
     <CharacterContext.Provider
       value={{
-        Characters,
-        Character,
+        fetchCharacters,
+        filters,
+        page,
+        isPreviousData,
+        getFilters,
         NextPage,
-        searchCharacters,
-        fetchCharacterInfo,
+        PrevPage,
       }}
     >
       {children}
